@@ -440,7 +440,7 @@ footer{background:#0c1a14;color:#9db3a7;padding:56px 0 32px;font-size:.9rem}
         <div class="field"><label for="c-nombre">Nombre</label><input id="c-nombre" type="text" placeholder="Tu nombre"></div>
         <div class="field"><label for="c-email">Correo</label><input id="c-email" type="email" placeholder="tu@correo.com"></div>
         <div class="field"><label for="c-msg">Mensaje</label><textarea id="c-msg" placeholder="¿En qué podemos ayudarte?"></textarea></div>
-        <label class="consent" style="color:#b8c7bf"><input type="checkbox"> He leído y acepto la <a href="#" onclick="openLegal(event,'modal-privacidad')" style="text-decoration:underline;color:var(--pulse);font-weight:600">política de privacidad</a>.</label>
+        <label class="consent" style="color:#b8c7bf"><input type="checkbox" id="c-consent"> He leído y acepto la <a href="#" onclick="openLegal(event,'modal-privacidad')" style="text-decoration:underline;color:var(--pulse);font-weight:600">política de privacidad</a>.</label>
         <button class="btn btn-pulse" type="submit">Enviar mensaje</button>
       </form>
     </div>
@@ -551,6 +551,11 @@ function notice(e,what){
 }
 function sendMail(e){
   e.preventDefault();
+  var consent = document.getElementById('c-consent');
+  if(consent && !consent.checked){
+    alert('Para enviar el mensaje, primero debes aceptar la política de privacidad.');
+    return;
+  }
   var nombre = (document.getElementById('c-nombre').value || '').trim();
   var correo = (document.getElementById('c-email').value || '').trim();
   var msg = (document.getElementById('c-msg').value || '').trim();
